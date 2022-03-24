@@ -7,8 +7,12 @@ from example.web.rest import Web
 
 @pytest.fixture(scope="module")
 def random_num():
-    """Test fixture"""
-    return random.randint(1, 10)
+    """Random int number
+
+    Yields:
+        int: return a random number from 1 to 9
+    """
+    yield random.randint(1, 9)
 
 
 @pytest.fixture()

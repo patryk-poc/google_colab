@@ -7,4 +7,5 @@ def test_random_number(random_num):
     When: A random number is generated
     Then: make sure it is with a range of integers between 0..9
     """
-    assert random_num in range(10)
+    boundry = 10
+    assert random_num in list(range(boundry))
