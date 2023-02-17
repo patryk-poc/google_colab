@@ -9,20 +9,15 @@ class Web:
         self.url = url
         self.session = self.configure_session()
 
-    @staticmethod
-    def configure_session() -> requests.Session:
-        """Get a session object
-
-        Returns:
-            requests.Session: A session object
-        """
+    def configure_session(self) -> requests.Session:
+        """Get a session object"""
         _session = requests.Session()
         _session.trust_env = False
         return _session
 
     def get_ip(self):
         """Get a client public IP"""
-        return self.session.get(self._url("/ip"))
+        return self.session.get(self._url("ip"))
 
     def _url(self, path: str):
         """Build URL"""

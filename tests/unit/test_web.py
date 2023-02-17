@@ -1,15 +1,19 @@
-""" Testing web client with pytest """
+from unittest.mock import Mock, patch
+
+from example.web import Web
 
 
-class TestWebClient:
-    """Test web requests"""
+def test_get_ip():
+    mock_response = Mock()
+    mock_response.text = "1.2.3.4"
+    mock_get = Mock(return_value=mock_response)
 
-    def test_get_ip(self, client):  # pylint: disable=no-self-use
-        """
-        Given: a web client
-        When: a GET request is sent to /ip endpoint
-        Then: a response with JSON and public IP of the running client is returned
-        """
-        resp = client.get_ip()
-        assert resp.status_code == 200
-        assert resp.json()["origin"]
+    with patch.object(Web, "configure_session") as mock_configure_session:
+        mock_session = Mock()
+        mock_session.get = mock_get
+        mock_configure_session.return_value = mock_session
+
+        client = Web()
+        ip = client.get_ip()
+        assert ip.text == "1.2.3.4"
+        mock_get.assert_called_once_with("https://httpbin.org/ip")

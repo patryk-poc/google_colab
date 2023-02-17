@@ -10,7 +10,10 @@ help:
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 test: ## Run tests with pytest
-	@poetry run pytest -v --verbosity 1 -s
+	@poetry run pytest -s --cov --cov-report=term-missing --durations=3
+
+test-unit: ## Run tests with pytest
+	@poetry run pytest -s --cov --cov-report=term-missing --durations=3 tests/unit
 
 update: ## Update project dependencies and show outdated packages (if any)
 	@poetry update
