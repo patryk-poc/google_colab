@@ -2,6 +2,12 @@
 
 Playground for Google colab and other tests.
 
+# Poetry upgrade
+
+To upgrade a package `<pkg_name>` to the latest version:
+
+    poetry add -G dev <pkg_name>@latest
+
 # Articles on Python testing frameworks
 
 ## unittest.mock
